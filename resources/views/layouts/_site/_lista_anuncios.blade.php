@@ -1,6 +1,7 @@
 <div class="row section">
     <h3 class="center">Anúncios</h3>
     <div class="divider"></div>
+    @include('layouts._site._filtro')
 </div>
 
 <div class="row section">
