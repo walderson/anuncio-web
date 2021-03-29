@@ -20,12 +20,9 @@
     <header>
         @include('layouts._site._nav')
     </header>
-    <div id="app">
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    <main>
+        @yield('content')
+    </main>
     <footer>
         @include('layouts._site._footer')
     </footer>

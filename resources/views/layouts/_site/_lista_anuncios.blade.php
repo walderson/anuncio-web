@@ -1,5 +1,5 @@
 <div class="row section">
-    <h3 style="text-align: center">Anúncios</h3>
+    <h3 class="center">Anúncios</h3>
     <div class="divider"></div>
 </div>
 
