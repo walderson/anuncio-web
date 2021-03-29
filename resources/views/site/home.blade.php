@@ -1,6 +1,7 @@
 @extends('layouts.site')
 
 @section('content')
+@include('layouts._site._slider')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
