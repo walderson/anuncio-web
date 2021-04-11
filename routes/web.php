@@ -29,10 +29,10 @@ Route::get('/anuncio/{id}/{titulo?}', ['as'=>'site.anuncio', function () {
     return view('site.anuncio');
 }]);
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
+Route::get('/admin/login', ['as'=>'admin.login', function () {
+    return view('admin.login.index');
+}]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
