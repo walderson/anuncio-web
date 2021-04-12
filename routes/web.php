@@ -43,6 +43,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', ['as'=>'admin.home', function () {
         return view('admin.home.index');
     }]);
-});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/admin/logout', [UsuarioController::class, 'logout'])->name('admin.logout');
+});
