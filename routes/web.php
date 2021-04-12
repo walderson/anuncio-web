@@ -33,14 +33,16 @@ Route::get('/anuncio/{id}/{titulo?}', ['as'=>'site.anuncio', function () {
 
 //Auth::routes();
 
-Route::get('/admin', ['as'=>'admin.home', function () {
-    return view('admin.home.index');
-}]);
-
 Route::get('/admin/login', ['as'=>'admin.login', function () {
     return view('admin.login.index');
 }]);
 
 Route::post('/admin/login', [UsuarioController::class, 'login'])->name('admin.login');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin', ['as'=>'admin.home', function () {
+        return view('admin.home.index');
+    }]);
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

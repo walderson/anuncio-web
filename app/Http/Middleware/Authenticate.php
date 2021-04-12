@@ -15,7 +15,9 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: usuário não autenticado ou sessão expirada!', 'class'=>'red white-text']);
+            return route('admin.login');
         }
     }
 }
