@@ -22,13 +22,13 @@
                 <option value="1">Chapada dos Guimarães</option>
                 <option value="2">Cuiabá</option>
                 <option value="3">Santo Antônio do Leverger</option>
-                <option value="4">Várzea Grane</option>
+                <option value="4">Várzea Grande</option>
             </select>
             <label for="cidade">Cidade</label>
         </div>
         <div class="input-field col s12 m4">
             <select id="valor">
-                <option value="1">Até R$ 500,00<option>
+                <option value="1">Até R$ 500,00</option>
                 <option value="2">R$ 500,00 a R$ 1.000,00</option>
                 <option value="3">R$ 1.000,00 a R$ 5.000,00</option>
                 <option value="4">R$ 5.000,00 a R$ 10.000,00</option>

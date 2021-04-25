@@ -45,4 +45,6 @@ Route::middleware(['auth'])->group(function () {
     }]);
 
     Route::get('/admin/logout', [UsuarioController::class, 'logout'])->name('admin.logout');
+
+    Route::get('/admin/usuarios', [UsuarioController::class, 'index'])->name('admin.usuarios');
 });

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
+
 class UsuarioController extends Controller
 {
     public function login(Request $request) {
@@ -32,5 +34,11 @@ class UsuarioController extends Controller
         $request->session()->flash('mensagem',
             ['msg'=>'Sessão encerrada com sucesso!', 'class'=>'green white-text']);
         return redirect()->route('admin.login');
+    }
+
+    public function index()
+    {
+        $usuarios = User::all()->sortBy('name');
+        return view('admin.usuarios.index', compact('usuarios'));
     }
 }
