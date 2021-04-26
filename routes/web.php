@@ -51,4 +51,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/usuarios', [UsuarioController::class, 'salvar'])->name('admin.usuarios');
     Route::get('/admin/usuarios/alterar/{id}', [UsuarioController::class, 'alterar'])->name('admin.usuarios.alterar');
     Route::put('/admin/usuarios/atualizar/{id}', [UsuarioController::class, 'atualizar'])->name('admin.usuarios.atualizar');
+    Route::delete('/admin/usuarios/remover/{id}', [UsuarioController::class, 'remover'])->name('admin.usuarios.remover');
 });

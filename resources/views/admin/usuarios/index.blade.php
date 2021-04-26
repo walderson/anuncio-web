@@ -30,8 +30,12 @@
                         <td>{{ $usuario->name }}</td>
                         <td>{{ $usuario->email }}</td>
                         <td>
-                            <a href="{{ route('admin.usuarios.alterar', $usuario->id) }}" class="btn orange">Atualizar</a>
-                            <a href="#" class="btn red">Remover</a>
+                            <form action="{{ route('admin.usuarios.remover', $usuario->id) }}" method="post">
+                                @csrf
+                                <input type="hidden" name="_method" value="delete">
+                                <a href="{{ route('admin.usuarios.alterar', $usuario->id) }}" class="btn orange">Atualizar</a>
+                                <button onclick="return remover(this.form, '{{ $usuario->name }}')" class="btn red">Remover</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -42,4 +46,13 @@
             <a href="{{ route('admin.usuarios.cadastrar') }}" class="btn blue">Cadastrar</a>
         </div>
     </div>
+    <script>
+        function remover(form, name) {
+            if(confirm("Confirma a remoção do usuário '" + name + "'?")) {
+                form.submit();
+            } else {
+                return false;
+            }
+        }
+    </script>
 @endsection
