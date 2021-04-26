@@ -38,5 +38,8 @@
                 </tbody>
             </table>
         </div>
+        <div class="row">
+            <a href="{{ route('admin.usuarios.cadastrar') }}" class="btn blue">Cadastrar</a>
+        </div>
     </div>
 @endsection

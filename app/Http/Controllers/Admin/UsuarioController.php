@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 
@@ -40,5 +41,25 @@ class UsuarioController extends Controller
     {
         $usuarios = User::all()->sortBy('name');
         return view('admin.usuarios.index', compact('usuarios'));
+    }
+
+    public function cadastrar()
+    {
+        return view('admin.usuarios.cadastrar');
+    }
+
+    public function salvar(Request $request)
+    {
+        $dados = $request->all();
+
+        $usuario = new User();
+        $usuario->name = $dados['name'];
+        $usuario->email = $dados['email'];
+        $usuario->password = Hash::make($dados['password']);
+        $usuario->save();
+
+        $request->session()->flash('mensagem',
+            ['msg'=>'Usuário cadastrado com sucesso!', 'class'=>'green white-text']);
+        return redirect()->route('admin.usuarios');
     }
 }

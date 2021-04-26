@@ -47,4 +47,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/logout', [UsuarioController::class, 'logout'])->name('admin.logout');
 
     Route::get('/admin/usuarios', [UsuarioController::class, 'index'])->name('admin.usuarios');
+    Route::get('/admin/usuarios/cadastrar', [UsuarioController::class, 'cadastrar'])->name('admin.usuarios.cadastrar');
+    Route::post('/admin/usuarios', [UsuarioController::class, 'salvar'])->name('admin.usuarios');
 });
