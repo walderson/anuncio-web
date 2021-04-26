@@ -8,7 +8,7 @@
                 <div class="nav-wrapper blue darken-1">
                     <div class="col s12">
                         <a href="{{ route('admin.home') }}" class="breadcrumb">Início</a>
-                        <a href="#!" class="breadcrumb">Listagem de Usuários</a>
+                        <a class="breadcrumb">Listagem de Usuários</a>
                     </div>
                 </div>
             </nav>
@@ -30,7 +30,7 @@
                         <td>{{ $usuario->name }}</td>
                         <td>{{ $usuario->email }}</td>
                         <td>
-                            <a href="#" class="btn orange">Atualizar</a>
+                            <a href="{{ route('admin.usuarios.alterar', $usuario->id) }}" class="btn orange">Atualizar</a>
                             <a href="#" class="btn red">Remover</a>
                         </td>
                     </tr>

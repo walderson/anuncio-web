@@ -49,4 +49,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/usuarios', [UsuarioController::class, 'index'])->name('admin.usuarios');
     Route::get('/admin/usuarios/cadastrar', [UsuarioController::class, 'cadastrar'])->name('admin.usuarios.cadastrar');
     Route::post('/admin/usuarios', [UsuarioController::class, 'salvar'])->name('admin.usuarios');
+    Route::get('/admin/usuarios/alterar/{id}', [UsuarioController::class, 'alterar'])->name('admin.usuarios.alterar');
+    Route::put('/admin/usuarios/atualizar/{id}', [UsuarioController::class, 'atualizar'])->name('admin.usuarios.atualizar');
 });

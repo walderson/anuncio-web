@@ -62,4 +62,26 @@ class UsuarioController extends Controller
             ['msg'=>'Usuário cadastrado com sucesso!', 'class'=>'green white-text']);
         return redirect()->route('admin.usuarios');
     }
+
+    public function alterar($id)
+    {
+        $usuario = User::find($id);
+        return view('admin.usuarios.alterar', compact('usuario'));
+    }
+
+    public function atualizar(Request $request, $id)
+    {
+        $dados = $request->all();
+        if (isset($dados['password']) && strlen($dados['password']) > 5)
+            $dados['password'] = Hash::make($dados['password']);
+        else
+            unset($dados['password']);
+
+        $usuario = User::find($id);
+        $usuario->update($dados);
+
+        $request->session()->flash('mensagem',
+            ['msg'=>'Usuário atualizado com sucesso!', 'class'=>'green white-text']);
+        return redirect()->route('admin.usuarios');
+    }
 }
