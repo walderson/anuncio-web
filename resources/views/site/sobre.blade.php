@@ -8,12 +8,16 @@
     </div>
     <div class="row section">
         <div class="col s12 m6">
-            <img src="{{ asset('img/megafone.jpg') }}" alt="" class="responsive-img">
+            @if (isset($pagina->mapa))
+            <div class="video-container">{!! $pagina->mapa !!}</div>
+            @else
+            <img src="{{ asset($pagina->imagem) }}" alt="" class="responsive-img">
+            @endif
         </div>
         <div class="col s12 m6">
-            <h4>A Empresa</h4>
-            <blockquote>Breve apresentação da empresa.</blockquote>
-            <p>Texto de apresentação detalhada da empresa.</p>
+            <h4>{{ $pagina->titulo }}</h4>
+            <blockquote>{{ $pagina->descricao }}</blockquote>
+            <p>{{ $pagina->texto }}</p>
         </div>
     </div>
 </div>
