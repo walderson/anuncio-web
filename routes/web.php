@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\UsuarioController;
-use App\Http\Controllers\Site\PaginaController;
+use App\Http\Controllers\Admin\PaginaController as PaginaAdmin;
+use App\Http\Controllers\Site\PaginaController as PaginaSite;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', ['as'=>'site.home', function () {
     return view('site.home');
 }]);
 
-Route::get('/sobre', [PaginaController::class, 'sobre'])->name('site.sobre');
+Route::get('/sobre', [PaginaSite::class, 'sobre'])->name('site.sobre');
 
 Route::get('/contato', ['as'=>'site.contato', function () {
     return view('site.contato');
@@ -51,4 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/usuarios/alterar/{id}', [UsuarioController::class, 'alterar'])->name('admin.usuarios.alterar');
     Route::put('/admin/usuarios/atualizar/{id}', [UsuarioController::class, 'atualizar'])->name('admin.usuarios.atualizar');
     Route::delete('/admin/usuarios/remover/{id}', [UsuarioController::class, 'remover'])->name('admin.usuarios.remover');
+
+    Route::get('/admin/paginas', [PaginaAdmin::class, 'index'])->name('admin.paginas');
+    Route::get('/admin/paginas/alterar/{id}', [PaginaAdmin::class, 'alterar'])->name('admin.paginas.alterar');
+    Route::put('/admin/paginas/atualizar/{id}', [PaginaAdmin::class, 'atualizar'])->name('admin.paginas.atualizar');
 });
