@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\UsuarioController;
+use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\PaginaController as PaginaAdmin;
+use App\Http\Controllers\Admin\UsuarioController;
 use App\Http\Controllers\Site\PaginaController as PaginaSite;
 
 /*
@@ -55,4 +56,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/paginas', [PaginaAdmin::class, 'index'])->name('admin.paginas');
     Route::get('/admin/paginas/alterar/{id}', [PaginaAdmin::class, 'alterar'])->name('admin.paginas.alterar');
     Route::put('/admin/paginas/atualizar/{id}', [PaginaAdmin::class, 'atualizar'])->name('admin.paginas.atualizar');
+
+    Route::get('/admin/categorias', [CategoriaController::class, 'index'])->name('admin.categorias');
+    Route::get('/admin/categorias/cadastrar', [CategoriaController::class, 'cadastrar'])->name('admin.categorias.cadastrar');
+    Route::post('/admin/categorias', [CategoriaController::class, 'salvar'])->name('admin.categorias');
+    Route::get('/admin/categorias/alterar/{id}', [CategoriaController::class, 'alterar'])->name('admin.categorias.alterar');
+    Route::put('/admin/categorias/atualizar/{id}', [CategoriaController::class, 'atualizar'])->name('admin.categorias.atualizar');
+    Route::delete('/admin/categorias/remover/{id}', [CategoriaController::class, 'remover'])->name('admin.categorias.remover');
 });

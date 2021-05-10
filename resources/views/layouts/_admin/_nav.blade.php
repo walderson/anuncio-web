@@ -19,6 +19,7 @@
                 <li><a href="#">{{ Auth::user()->name }}</a></li>
                 <li><a href="{{ route('admin.usuarios') }}">Usuários</a></li>
                 <li><a href="{{ route('admin.paginas') }}">Páginas</a></li>
+                <li><a href="{{ route('admin.categorias') }}">Categorias</a></li>
             </ul>
             @endif
         </div>
@@ -31,6 +32,9 @@
     @else
     <li><a href="{{ route('admin.home') }}">Início</a></li>
     <li><a href="#">{{ Auth::user()->name }}</a></li>
+    <li><a href="{{ route('admin.usuarios') }}">Usuários</a></li>
+    <li><a href="{{ route('admin.paginas') }}">Páginas</a></li>
+    <li><a href="{{ route('admin.categorias') }}">Categorias</a></li>
     <li><a href="{{ route('admin.logout') }}">Sair</a></li>
     @endif
 </ul>
