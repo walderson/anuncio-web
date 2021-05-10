@@ -20,6 +20,7 @@
                 <li><a href="{{ route('admin.usuarios') }}">Usuários</a></li>
                 <li><a href="{{ route('admin.paginas') }}">Páginas</a></li>
                 <li><a href="{{ route('admin.categorias') }}">Categorias</a></li>
+                <li><a href="{{ route('admin.municipios') }}">Municípios</a></li>
             </ul>
             @endif
         </div>
@@ -35,6 +36,7 @@
     <li><a href="{{ route('admin.usuarios') }}">Usuários</a></li>
     <li><a href="{{ route('admin.paginas') }}">Páginas</a></li>
     <li><a href="{{ route('admin.categorias') }}">Categorias</a></li>
+    <li><a href="{{ route('admin.municipios') }}">Municípios</a></li>
     <li><a href="{{ route('admin.logout') }}">Sair</a></li>
     @endif
 </ul>
