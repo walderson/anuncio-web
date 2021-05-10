@@ -8,20 +8,27 @@
     </div>
     <div class="row section">
         <div class="col s12 m7">
-            <img src="{{ asset('img/mapa.jpg') }}" alt="" class="responsive-img">
+            @if (isset($pagina->mapa))
+            <div class="video-container">{!! $pagina->mapa !!}</div>
+            @else
+            <img src="{{ asset($pagina->imagem) }}" alt="" class="responsive-img">
+            @endif
         </div>
         <div class="col s12 m5">
-            <form action="" class="col s12">
+            <h4>{{ $pagina->titulo }}</h4>
+            <blockquote>{{ $pagina->descricao }}</blockquote>
+            <form action="{{ route('site.contato') }}" method="post" class="col s12">
+                @csrf
                 <div class="input-field">
-                    <input type="text" id="nome" class="validate">
+                    <input type="text" id="nome" name="nome" class="validate">
                     <label for="name">Nome</label>
                 </div>
                 <div class="input-field">
-                    <input type="email" id="email" class="validate">
+                    <input type="email" id="email" name="email" class="validate">
                     <label for="email">E-mail</label>
                 </div>
                 <div class="input-field">
-                    <textarea id="mensagem" class="materialize-textarea"></textarea>
+                    <textarea id="mensagem" name="mensagem" class="materialize-textarea"></textarea>
                     <label for="mensagem">Mensagem</label>
                 </div>
                 <button class="btn blue">Enviar</button>

@@ -32,5 +32,24 @@ class PaginaSeeder extends Seeder
         $paginaSobre->mapa = '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15371.345554253456!2d-56.03614755!3d-15.600387999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x939db1f487dc5967%3A0x5fdbe3599d488738!2sCervejaria%20LaCerva!5e0!3m2!1spt-BR!2sbr!4v1620056728060!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>';
         $paginaSobre->save();
         echo "Página Sobre inicializada com sucesso.\n";
+
+        $existeContato = Pagina::where('tipo', '=', 'Contato')->count();
+        if ($existeContato) {
+            $paginaContato = Pagina::where('tipo', '=', 'Contato')->first();
+            echo "Atualizando página Contato...\n";
+        } else {
+            $paginaContato = new Pagina();
+            $paginaContato->tipo = 'Contato';
+            echo "Cadastrando página Contato...\n";
+        }
+
+        $paginaContato->titulo = 'Entre em contato';
+        $paginaContato->descricao = 'Preencha o formulário abaixo.';
+        $paginaContato->email = "contato@dominio.com.br";
+        $paginaContato->texto = '';
+        $paginaContato->imagem = '/img/mapa.jpg';
+        $paginaContato->mapa = null;
+        $paginaContato->save();
+        echo "Página Contato inicializada com sucesso.\n";
     }
 }

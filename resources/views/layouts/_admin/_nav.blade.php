@@ -14,11 +14,13 @@
                 <li><a href="{{ route('admin.logout') }}">Sair</a></li>
                 @endif
             </ul>
+            @if(!Auth::guest())
             <ul id='dropdown1' class='dropdown-content'>
                 <li><a href="#">{{ Auth::user()->name }}</a></li>
                 <li><a href="{{ route('admin.usuarios') }}">Usuários</a></li>
                 <li><a href="{{ route('admin.paginas') }}">Páginas</a></li>
             </ul>
+            @endif
         </div>
     </div>
 </nav>
