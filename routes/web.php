@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\AnuncioController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\MunicipioController;
 use App\Http\Controllers\Admin\PaginaController as PaginaAdmin;
@@ -71,4 +72,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/municipios/alterar/{id}', [MunicipioController::class, 'alterar'])->name('admin.municipios.alterar');
     Route::put('/admin/municipios/atualizar/{id}', [MunicipioController::class, 'atualizar'])->name('admin.municipios.atualizar');
     Route::delete('/admin/municipios/remover/{id}', [MunicipioController::class, 'remover'])->name('admin.municipios.remover');
+
+    Route::get('/admin/anuncios', [AnuncioController::class, 'index'])->name('admin.anuncios');
+    Route::get('/admin/anuncios/cadastrar', [AnuncioController::class, 'cadastrar'])->name('admin.anuncios.cadastrar');
+    Route::post('/admin/anuncios', [AnuncioController::class, 'salvar'])->name('admin.anuncios');
+    Route::get('/admin/anuncios/alterar/{id}', [AnuncioController::class, 'alterar'])->name('admin.anuncios.alterar');
+    Route::put('/admin/anuncios/atualizar/{id}', [AnuncioController::class, 'atualizar'])->name('admin.anuncios.atualizar');
+    Route::delete('/admin/anuncios/remover/{id}', [AnuncioController::class, 'remover'])->name('admin.anuncios.remover');
 });

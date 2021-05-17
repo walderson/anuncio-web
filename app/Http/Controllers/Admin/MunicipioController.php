@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Anuncio;
 use App\Models\Municipio;
 
 class MunicipioController extends Controller
@@ -58,6 +59,17 @@ class MunicipioController extends Controller
 
     public function remover(Request $request, $id)
     {
+        if (Anuncio::where('municipio_id', '=', $id)->count() > 0) {
+            $msg = "Não é possível remover um município que possua anúncios vinculados:";
+            $anuncios = Anuncio::where('municipio_id', '=', $id)->get();
+            foreach ($anuncios as $anuncio) {
+                $msg .= " id:" . $anuncio->id;
+            }
+            $request->session()->flash('mensagem',
+                ['msg'=>$msg, 'class'=>'red white-text']);
+            return redirect()->route('admin.municipios');
+        }
+
         Municipio::find($id)->delete();
 
         $request->session()->flash('mensagem',
