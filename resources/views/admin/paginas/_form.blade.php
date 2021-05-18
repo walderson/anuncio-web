@@ -37,5 +37,5 @@
 </div>
 <div class="input-field">
     <textarea id="mapa" name="mapa" class="materialize-textarea">{{ isset($pagina->mapa) ? $pagina->mapa : '' }}</textarea>
-    <label for="mapa">Mapa</label>
+    <label for="mapa">Mapa (Copie e cole o iframe do Google Maps)</label>
 </div>

@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="container">
-        <h2 class="center">Atualizar Dados de Municípios</h2>
+        <h2 class="center">Atualizar Dados de Município</h2>
         <div class="row">
             <nav>
                 <div class="nav-wrapper blue darken-1">
                     <div class="col s12">
                         <a href="{{ route('admin.home') }}" class="breadcrumb">Início</a>
-                        <a href="{{ route('admin.municipios') }}" class="breadcrumb">Listagem de Municípioss</a>
-                        <a class="breadcrumb">Atualizar Dados de Municípios</a>
+                        <a href="{{ route('admin.municipios') }}" class="breadcrumb">Listagem de Municípios</a>
+                        <a class="breadcrumb">Atualizar Dados de Município</a>
                     </div>
                 </div>
             </nav>
