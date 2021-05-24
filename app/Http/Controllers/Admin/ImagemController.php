@@ -24,35 +24,6 @@ class ImagemController extends Controller
         return view('admin.imagens.cadastrar', compact('anuncio'));
     }
 
-    private function preencher(Request $request, $anuncio, $dados) {
-        $anuncio->titulo = $dados['titulo'];
-        $anuncio->descricao = $dados['descricao'];
-        $anuncio->finalidade = $dados['finalidade'];
-        $anuncio->endereco = $dados['endereco'];
-        $anuncio->cep = $dados['cep'];
-        $anuncio->valor = $dados['valor'];
-        $anuncio->detalhes = $dados['detalhes'];
-        $anuncio->status = $dados['status'];
-        if (isset($dados['mapa']) && trim($dados['mapa']) != '') {
-            $anuncio->mapa = trim($dados['mapa']);
-        } else {
-            $anuncio->mapa = null;
-        }
-
-        $anuncio->categoria_id = $dados['categoria_id'];
-        $anuncio->municipio_id = $dados['municipio_id'];
-
-        $arquivo = $request->file('imagem');
-        if ($arquivo) {
-            $rand = rand(10000, 99999);
-            $dir = 'img/anuncios/' . Str::slug($dados['titulo'], '_') . '/';
-            $ext = $arquivo->guessClientExtension();
-            $nomeArquivo = '_img_' . $rand . '.' . $ext;
-            $arquivo->move($dir, $nomeArquivo);
-            $anuncio->imagem = $dir . $nomeArquivo;
-        }
-    }
-
     public function salvar(Request $request, $id)
     {
         $dados = $request->all();
@@ -90,31 +61,57 @@ class ImagemController extends Controller
 
     public function alterar($id)
     {
-        $anuncio = Anuncio::find($id);
-        $categorias = Categoria::all()->sortBy('titulo');
-        $municipios = Municipio::all()->sortBy('nome');
-        return view('admin.anuncios.alterar', compact('anuncio', 'categorias', 'municipios'));
+        $imagem = Imagem::find($id);
+        $anuncio = $imagem->anuncio;
+        return view('admin.imagens.alterar', compact('imagem', 'anuncio'));
     }
 
     public function atualizar(Request $request, $id)
     {
         $dados = $request->all();
 
-        $anuncio = Anuncio::find($id);
-        $this->preencher($request, $anuncio, $dados);
-        $anuncio->update();
+        $imagem = Imagem::find($id);
+        $anuncio = $imagem->anuncio;
+        if (isset($dados['titulo']) && trim($dados['titulo']) != '') {
+            $imagem->titulo = trim($dados['titulo']);
+        } else {
+            $imagem->titulo = null;
+        }
+        if (isset($dados['descricao']) && trim($dados['descricao']) != '') {
+            $imagem->descricao = trim($dados['descricao']);
+        } else {
+            $imagem->descricao = null;
+        }
+        if (isset($dados['ordem']) && trim($dados['ordem']) != '') {
+            $imagem->ordem = trim($dados['ordem']);
+        } else {
+            $imagem->ordem = null;
+        }
+
+        $arquivo = $request->file('imagem');
+        if ($arquivo) {
+            $rand = rand(10000, 99999);
+            $dir = 'img/anuncios/' . Str::slug($anuncio->titulo, '_') . '/';
+            $ext = $arquivo->guessClientExtension();
+            $nomeArquivo = '_img_' . $rand . '.' . $ext;
+            $arquivo->move($dir, $nomeArquivo);
+            $imagem->imagem = $dir . $nomeArquivo;
+        }
+        $imagem->update();
 
         $request->session()->flash('mensagem',
-            ['msg'=>'Anúncio atualizado com sucesso!', 'class'=>'green white-text']);
-        return redirect()->route('admin.anuncios');
+            ['msg'=>'Imagem atualizada com sucesso!', 'class'=>'green white-text']);
+        return redirect()->route('admin.imagens', $anuncio->id);
     }
 
     public function remover(Request $request, $id)
     {
-        Anuncio::find($id)->delete();
+        $imagem = Imagem::find($id);
+        $anuncio = $imagem->anuncio;
+        $imagem->delete();
 
         $request->session()->flash('mensagem',
-            ['msg'=>'Anúncio removido com sucesso!', 'class'=>'green white-text']);
-        return redirect()->route('admin.anuncios');
+            ['msg'=>'Imagem removida com sucesso!', 'class'=>'green white-text']);
+        return redirect()->route('admin.imagens', $anuncio->id);
     }
 }
