@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\AnuncioController;
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\ImagemController;
 use App\Http\Controllers\Admin\MunicipioController;
 use App\Http\Controllers\Admin\PaginaController as PaginaAdmin;
 use App\Http\Controllers\Admin\UsuarioController;
@@ -79,4 +80,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/anuncios/alterar/{id}', [AnuncioController::class, 'alterar'])->name('admin.anuncios.alterar');
     Route::put('/admin/anuncios/atualizar/{id}', [AnuncioController::class, 'atualizar'])->name('admin.anuncios.atualizar');
     Route::delete('/admin/anuncios/remover/{id}', [AnuncioController::class, 'remover'])->name('admin.anuncios.remover');
+
+    Route::get('/admin/imagens/{id}', [ImagemController::class, 'index'])->name('admin.imagens');
+    Route::get('/admin/imagens/cadastrar/{id}', [ImagemController::class, 'cadastrar'])->name('admin.imagens.cadastrar');
+    Route::post('/admin/imagens/{id}', [ImagemController::class, 'salvar'])->name('admin.imagens');
+    Route::get('/admin/imagens/alterar/{id}', [ImagemController::class, 'alterar'])->name('admin.imagens.alterar');
+    Route::put('/admin/imagens/atualizar/{id}', [ImagemController::class, 'atualizar'])->name('admin.imagens.atualizar');
+    Route::delete('/admin/imagens/remover/{id}', [ImagemController::class, 'remover'])->name('admin.imagens.remover');
 });

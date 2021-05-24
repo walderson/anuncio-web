@@ -55,8 +55,8 @@
         </div>
     </div>
     <script>
-        function remover(form, nome) {
-            if(confirm("Confirma a remoção do município '" + nome + "'?")) {
+        function remover(form, titulo) {
+            if(confirm("Confirma a remoção do anúncio '" + titulo + "'?")) {
                 form.submit();
             } else {
                 return false;
