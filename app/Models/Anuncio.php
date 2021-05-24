@@ -16,4 +16,8 @@ class Anuncio extends Model
     public function municipio() {
         return $this->belongsTo('App\Models\Municipio', 'municipio_id');
     }
+
+    public function imagens() {
+        return $this->hasMany('App\Models\Imagem', 'anuncio_id');
+    }
 }
