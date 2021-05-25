@@ -2,12 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\AnuncioController;
+use App\Http\Controllers\Admin\AnuncioController as AnuncioAdmin;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\ImagemController;
 use App\Http\Controllers\Admin\MunicipioController;
 use App\Http\Controllers\Admin\PaginaController as PaginaAdmin;
 use App\Http\Controllers\Admin\UsuarioController;
+use App\Http\Controllers\Site\AnuncioController as AnuncioSite;
+use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\PaginaController as PaginaSite;
 
 /*
@@ -21,18 +23,14 @@ use App\Http\Controllers\Site\PaginaController as PaginaSite;
 |
 */
 
-Route::get('/', ['as'=>'site.home', function () {
-    return view('site.home');
-}]);
+Route::get('/', [HomeController::class, 'index'])->name('site.home');
 
 Route::get('/sobre', [PaginaSite::class, 'sobre'])->name('site.sobre');
 
 Route::get('/contato', [PaginaSite::class, 'contato'])->name('site.contato');
 Route::post('/contato', [PaginaSite::class, 'enviarContato'])->name('site.contato');
 
-Route::get('/anuncio/{id}/{titulo?}', ['as'=>'site.anuncio', function () {
-    return view('site.anuncio');
-}]);
+Route::get('/anuncio/{id}/{titulo?}', [AnuncioSite::class, 'index'])->name('site.anuncio');
 
 //Auth::routes();
 
@@ -74,12 +72,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/municipios/atualizar/{id}', [MunicipioController::class, 'atualizar'])->name('admin.municipios.atualizar');
     Route::delete('/admin/municipios/remover/{id}', [MunicipioController::class, 'remover'])->name('admin.municipios.remover');
 
-    Route::get('/admin/anuncios', [AnuncioController::class, 'index'])->name('admin.anuncios');
-    Route::get('/admin/anuncios/cadastrar', [AnuncioController::class, 'cadastrar'])->name('admin.anuncios.cadastrar');
-    Route::post('/admin/anuncios', [AnuncioController::class, 'salvar'])->name('admin.anuncios');
-    Route::get('/admin/anuncios/alterar/{id}', [AnuncioController::class, 'alterar'])->name('admin.anuncios.alterar');
-    Route::put('/admin/anuncios/atualizar/{id}', [AnuncioController::class, 'atualizar'])->name('admin.anuncios.atualizar');
-    Route::delete('/admin/anuncios/remover/{id}', [AnuncioController::class, 'remover'])->name('admin.anuncios.remover');
+    Route::get('/admin/anuncios', [AnuncioAdmin::class, 'index'])->name('admin.anuncios');
+    Route::get('/admin/anuncios/cadastrar', [AnuncioAdmin::class, 'cadastrar'])->name('admin.anuncios.cadastrar');
+    Route::post('/admin/anuncios', [AnuncioAdmin::class, 'salvar'])->name('admin.anuncios');
+    Route::get('/admin/anuncios/alterar/{id}', [AnuncioAdmin::class, 'alterar'])->name('admin.anuncios.alterar');
+    Route::put('/admin/anuncios/atualizar/{id}', [AnuncioAdmin::class, 'atualizar'])->name('admin.anuncios.atualizar');
+    Route::delete('/admin/anuncios/remover/{id}', [AnuncioAdmin::class, 'remover'])->name('admin.anuncios.remover');
 
     Route::get('/admin/imagens/{id}', [ImagemController::class, 'index'])->name('admin.imagens');
     Route::get('/admin/imagens/cadastrar/{id}', [ImagemController::class, 'cadastrar'])->name('admin.imagens.cadastrar');
