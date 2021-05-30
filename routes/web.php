@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\ImagemController;
 use App\Http\Controllers\Admin\MunicipioController;
 use App\Http\Controllers\Admin\PaginaController as PaginaAdmin;
+use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UsuarioController;
 use App\Http\Controllers\Site\AnuncioController as AnuncioSite;
 use App\Http\Controllers\Site\HomeController;
@@ -85,4 +86,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/imagens/alterar/{id}', [ImagemController::class, 'alterar'])->name('admin.imagens.alterar');
     Route::put('/admin/imagens/atualizar/{id}', [ImagemController::class, 'atualizar'])->name('admin.imagens.atualizar');
     Route::delete('/admin/imagens/remover/{id}', [ImagemController::class, 'remover'])->name('admin.imagens.remover');
+
+    Route::get('/admin/slides', [SlideController::class, 'index'])->name('admin.slides');
+    Route::get('/admin/slides/cadastrar', [SlideController::class, 'cadastrar'])->name('admin.slides.cadastrar');
+    Route::post('/admin/slides', [SlideController::class, 'salvar'])->name('admin.slides');
+    Route::get('/admin/slides/alterar/{id}', [SlideController::class, 'alterar'])->name('admin.slides.alterar');
+    Route::put('/admin/slides/atualizar/{id}', [SlideController::class, 'atualizar'])->name('admin.slides.atualizar');
+    Route::delete('/admin/slides/remover/{id}', [SlideController::class, 'remover'])->name('admin.slides.remover');
 });
