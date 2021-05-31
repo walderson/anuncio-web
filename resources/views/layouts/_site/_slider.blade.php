@@ -1,32 +1,16 @@
 <div class="slider">
     <ul class="slides">
+        @foreach ($slides as $slide)
         <li>
-            <img src="{{ asset('img/slide_1.jpg') }}">
-            <div class="caption center-align">
-                <h3>Título da imagem</h3>
-                <h5 class="light grey-text text-lighten-3">Descrição da imagem</h5>
+            <img src="{{ asset($slide->imagem) }}">
+            <div class="caption {{ $alinhamentos[rand(0, 2)] }}">
+                <h3>{{ $slide->titulo }}</h3>
+                <h5 class="light grey-text text-lighten-3">{{ $slide->descricao }}</h5>
+                @if ($slide->link != null)
+                <a href="{{ $slide->link }}" class="btn btn-large blue">Mais...</a>
+                @endif
             </div>
         </li>
-        <li>
-            <img src="{{ asset('img/slide_2.jpg') }}">
-            <div class="caption right-align">
-                <h3>Título da imagem</h3>
-                <h5 class="light grey-text text-lighten-3">Descrição da imagem</h5>
-            </div>
-        </li>
-        <li>
-            <img src="{{ asset('img/slide_3.jpg') }}">
-            <div class="caption left-align">
-                <h3>Título da imagem</h3>
-                <h5 class="light grey-text text-lighten-3">Descrição da imagem</h5>
-            </div>
-        </li>
-        <li>
-            <img src="{{ asset('img/slide_4.jpg') }}">
-            <div class="caption center-align">
-                <h3>Título da imagem</h3>
-                <h5 class="light grey-text text-lighten-3">Descrição da imagem</h5>
-            </div>
-        </li>
+        @endforeach
     </ul>
 </div>

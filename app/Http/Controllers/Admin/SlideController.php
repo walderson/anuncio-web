@@ -75,9 +75,9 @@ class SlideController extends Controller
             $slide->descricao = null;
         }
         if (isset($dados['link']) && trim($dados['link']) != '') {
-            $slide->descricao = trim($dados['link']);
+            $slide->link = trim($dados['link']);
         } else {
-            $slide->descricao = null;
+            $slide->link = null;
         }
         if (isset($dados['ordem']) && trim($dados['ordem']) != '') {
             $slide->ordem = trim($dados['ordem']);
@@ -108,6 +108,6 @@ class SlideController extends Controller
 
         $request->session()->flash('mensagem',
             ['msg'=>'Slide removido com sucesso!', 'class'=>'green white-text']);
-        return redirect()->route('admin.slides', $anuncio->id);
+        return redirect()->route('admin.slides');
     }
 }
