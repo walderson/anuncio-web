@@ -30,7 +30,7 @@ class CreatePapeisTable extends Migration
             $table->integer('papel_id')->unsigned();
             $table->foreign('papel_id')->references('id')->on('papeis')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->primary(['papel_id', 'user_id']);
         });
     }
