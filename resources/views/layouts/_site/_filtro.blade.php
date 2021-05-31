@@ -1,33 +1,35 @@
 <div class="row">
-    <form action="">
+    <form action="{{  route('site.busca') }}">
         <div class="input-field col s6 m3">
-            <select id="finalidade">
-                <option value="aluguel">Aluguel</option>
-                <option value="troca">Troca</option>
-                <option value="venda">Venda</option>
+            <select id="finalidade" name="finalidade">
+                <option value="">Todas</option>
+                <option value="Aluguel"{{ $dados['finalidade'] == 'Aluguel' ? " selected" : "" }}>Aluguel</option>
+                <option value="Troca"{{ $dados['finalidade'] == 'Troca' ? " selected" : "" }}>Troca</option>
+                <option value="Venda"{{ $dados['finalidade'] == 'Venda' ? " selected" : "" }}>Venda</option>
             </select>
             <label for="finalidade">Finalidade</label>
         </div>
         <div class="input-field col s6 m3">
-            <select id="categoria">
-                <option value="1">Automóvel</option>
-                <option value="2">Casa</option>
-                <option value="3">Eletrônico</option>
-                <option value="4">Telefonia</option>
+            <select id="categoria" name="categoria_id">
+                <option value="">Todas</option>
+                @foreach ($categorias as $categoria)
+                <option value="{{ $categoria->id }}"{{ $dados['categoria_id'] == $categoria->id ? " selected" : "" }}>{{ $categoria->titulo }}</option>
+                @endforeach
             </select>
             <label for="categoria">Categoria</label>
         </div>
         <div class="input-field col s12 m6">
-            <select id="cidade">
-                <option value="1">Chapada dos Guimarães</option>
-                <option value="2">Cuiabá</option>
-                <option value="3">Santo Antônio do Leverger</option>
-                <option value="4">Várzea Grande</option>
+            <select id="municipio" name="municipio_id">
+                <option value="">Todos</option>
+                @foreach ($municipios as $municipio)
+                <option value="{{ $municipio->id }}"{{ $dados['municipio_id'] == $municipio->id ? " selected" : "" }}>{{ $municipio->nome }} - {{ $municipio->sigla_uf }}</option>
+                @endforeach
             </select>
-            <label for="cidade">Cidade</label>
+            <label for="municipio">Município</label>
         </div>
         <div class="input-field col s12 m4">
-            <select id="valor">
+            <select id="valor" name="valor">
+                <option value="">Todas</option>
                 <option value="1">Até R$ 500,00</option>
                 <option value="2">R$ 500,00 a R$ 1.000,00</option>
                 <option value="3">R$ 1.000,00 a R$ 5.000,00</option>
@@ -40,11 +42,11 @@
             <label for="valor">Faixa de Valor</label>
         </div>
         <div class="input-field col s9 m6">
-            <input type="text" id="endereco" class="validate">
+            <input type="text" id="endereco" name="endereco" class="validate" value="{{ $dados['endereco'] }}">
             <label for="endereco">Endereço</label>
         </div>
         <div class="input-field col s3 m2">
-            <buttun class="btn deep-orange darken-1 right">Filtrar</buttun>
+            <button class="btn deep-orange darken-1 right">Filtrar</button>
         </div>
     </form>
 </div>

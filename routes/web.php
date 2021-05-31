@@ -26,6 +26,8 @@ use App\Http\Controllers\Site\PaginaController as PaginaSite;
 
 Route::get('/', [HomeController::class, 'index'])->name('site.home');
 
+Route::get('/busca', [HomeController::class, 'busca'])->name('site.busca');
+
 Route::get('/sobre', [PaginaSite::class, 'sobre'])->name('site.sobre');
 
 Route::get('/contato', [PaginaSite::class, 'contato'])->name('site.contato');
