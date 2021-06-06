@@ -33,6 +33,7 @@
                             <form action="{{ route('admin.usuarios.remover', $usuario->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
+                                <a href="{{ route('admin.usuarios.papeis', $usuario->id) }}" class="btn green">Papéis</a>
                                 <a href="{{ route('admin.usuarios.alterar', $usuario->id) }}" class="btn orange">Atualizar</a>
                                 <button onclick="return remover(this.form, '{{ $usuario->name }}')" class="btn red">Remover</button>
                             </form>

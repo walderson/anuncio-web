@@ -44,4 +44,20 @@ class User extends Authenticatable
     public function papeis() {
         return $this->belongsToMany(Papel::class);
     }
+
+    public function adicionarPapel($papel) {
+        if (is_string($papel)) {
+            return $this->papeis()->attach(Papel::where('nome', '=', $papel)->firstOrFail());
+        }
+
+        return $this->papeis()->attach(Papel::where('nome', '=', $papel->nome)->firstOrFail());
+    }
+
+    public function removerPapel($papel) {
+        if (is_string($papel)) {
+            return $this->papeis()->detach(Papel::where('nome', '=', $papel)->firstOrFail());
+        }
+
+        return $this->papeis()->detach(Papel::where('nome', '=', $papel->nome)->firstOrFail());
+    }
 }

@@ -57,6 +57,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/usuarios/alterar/{id}', [UsuarioController::class, 'alterar'])->name('admin.usuarios.alterar');
     Route::put('/admin/usuarios/atualizar/{id}', [UsuarioController::class, 'atualizar'])->name('admin.usuarios.atualizar');
     Route::delete('/admin/usuarios/remover/{id}', [UsuarioController::class, 'remover'])->name('admin.usuarios.remover');
+    Route::get('/admin/usuarios/{id}/papeis', [UsuarioController::class, 'papeis'])->name('admin.usuarios.papeis');
+    Route::post('/admin/usuarios/{id}/papeis', [UsuarioController::class, 'salvarPapel'])->name('admin.usuarios.papeis');
+    Route::delete('/admin/usuarios/{id}/papeis/remover/{idPapel}', [UsuarioController::class, 'removerPapel'])->name('admin.usuarios.papeis.remover');
 
     Route::get('/admin/paginas', [PaginaAdmin::class, 'index'])->name('admin.paginas');
     Route::get('/admin/paginas/alterar/{id}', [PaginaAdmin::class, 'alterar'])->name('admin.paginas.alterar');

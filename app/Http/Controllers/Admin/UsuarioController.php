@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\Papel;
 use App\Models\User;
 
 class UsuarioController extends Controller
@@ -92,5 +93,26 @@ class UsuarioController extends Controller
         $request->session()->flash('mensagem',
             ['msg'=>'Usuário removido com sucesso!', 'class'=>'green white-text']);
         return redirect()->route('admin.usuarios');
+    }
+
+    public function papeis($id) {
+        $usuario = User::find($id);
+        $papeis = Papel::orderBy('nome')->get();
+        return view('admin.usuarios.papeis', compact('usuario', 'papeis'));
+    }
+
+    public function salvarPapel(Request $request, $id) {
+        $dados = $request->all();
+        $usuario = User::find($id);
+        $papel = Papel::find($dados['papel_id']);
+        $usuario->adicionarPapel($papel);
+        return redirect()->back();
+    }
+
+    public function removerPapel($id, $idPapel) {
+        $usuario = User::find($id);
+        $papel = Papel::find($idPapel);
+        $usuario->removerPapel($papel);
+        return redirect()->back();
     }
 }
