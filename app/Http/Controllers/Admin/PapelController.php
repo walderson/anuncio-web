@@ -4,22 +4,41 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Papel;
 use App\Models\Permissao;
 
 class PapelController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        if (!Auth::user()->can('listar-papeis')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $papeis = Papel::orderBy('nome')->get();
         return view('admin.papeis.index', compact('papeis'));
     }
 
-    public function cadastrar() {
+    public function cadastrar(Request $request) {
+        if (!Auth::user()->can('cadastrar-papeis')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         return view('admin.papeis.cadastrar');
     }
 
     public function salvar(Request $request) {
+        if (!Auth::user()->can('cadastrar-papeis')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $dados = $request->all();
         if ($dados['nome'] == 'Admin') {
             $request->session()->flash('mensagem',
@@ -35,6 +54,12 @@ class PapelController extends Controller
     }
 
     public function alterar(Request $request, $id) {
+        if (!Auth::user()->can('atualizar-papeis')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $papel = Papel::find($id);
         if ($papel->nome == 'Admin') {
             $request->session()->flash('mensagem',
@@ -46,6 +71,12 @@ class PapelController extends Controller
     }
 
     public function atualizar(Request $request, $id) {
+        if (!Auth::user()->can('atualizar-papeis')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $papel = Papel::find($id);
         if ($papel->nome == 'Admin') {
             $request->session()->flash('mensagem',
@@ -62,6 +93,12 @@ class PapelController extends Controller
     }
 
     public function remover(Request $request, $id) {
+        if (!Auth::user()->can('remover-papeis')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $papel = Papel::find($id);
         if ($papel->nome == 'Admin') {
             $request->session()->flash('mensagem',

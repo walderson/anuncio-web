@@ -38,25 +38,37 @@ class UsuarioController extends Controller
         return redirect()->route('admin.login');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        /*if (Auth::user()->can('listar-usuarios', false)) {
-            dd('Sucesso!');
-        } else {
-            dd('Fracasso!');
-        }*/
+        if (!Auth::user()->can('listar-usuarios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
 
         $usuarios = User::all()->sortBy('name');
         return view('admin.usuarios.index', compact('usuarios'));
     }
 
-    public function cadastrar()
+    public function cadastrar(Request $request)
     {
+        if (!Auth::user()->can('cadastrar-usuarios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         return view('admin.usuarios.cadastrar');
     }
 
     public function salvar(Request $request)
     {
+        if (!Auth::user()->can('cadastrar-usuarios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $dados = $request->all();
 
         $usuario = new User();
@@ -70,14 +82,26 @@ class UsuarioController extends Controller
         return redirect()->route('admin.usuarios');
     }
 
-    public function alterar($id)
+    public function alterar(Request $request, $id)
     {
+        if (!Auth::user()->can('atualizar-usuarios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $usuario = User::find($id);
         return view('admin.usuarios.alterar', compact('usuario'));
     }
 
     public function atualizar(Request $request, $id)
     {
+        if (!Auth::user()->can('atualizar-usuarios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $dados = $request->all();
         if (isset($dados['password']) && strlen($dados['password']) > 5)
             $dados['password'] = Hash::make($dados['password']);
@@ -94,6 +118,12 @@ class UsuarioController extends Controller
 
     public function remover(Request $request, $id)
     {
+        if (!Auth::user()->can('remover-usuarios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         User::find($id)->delete();
 
         $request->session()->flash('mensagem',
@@ -111,7 +141,9 @@ class UsuarioController extends Controller
         $dados = $request->all();
         $usuario = User::find($id);
         $papel = Papel::find($dados['papel_id']);
-        $usuario->adicionarPapel($papel);
+        if (!$usuario->possuiPapel($papel->nome)) {
+            $usuario->adicionarPapel($papel);
+        }
         return redirect()->back();
     }
 

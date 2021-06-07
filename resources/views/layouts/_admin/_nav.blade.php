@@ -17,9 +17,15 @@
             @if(!Auth::guest())
             <ul id='dropdown1' class='dropdown-content'>
                 <li><a href="#">{{ Auth::user()->name }}</a></li>
+                @can('listar-papeis')
                 <li><a href="{{ route('admin.papeis') }}">Papéis</a></li>
+                @endcan
+                @can('listar-usuarios')
                 <li><a href="{{ route('admin.usuarios') }}">Usuários</a></li>
+                @endcan
+                @can('listar-paginas')
                 <li><a href="{{ route('admin.paginas') }}">Páginas</a></li>
+                @endcan
                 <li><a href="{{ route('admin.slides') }}">Slides</a></li>
                 <li><a href="{{ route('admin.categorias') }}">Categorias</a></li>
                 <li><a href="{{ route('admin.municipios') }}">Municípios</a></li>
@@ -36,9 +42,15 @@
     @else
     <li><a href="{{ route('admin.home') }}">Início</a></li>
     <li><a href="#">{{ Auth::user()->name }}</a></li>
+    @can('listar-papeis')
     <li><a href="{{ route('admin.papeis') }}">Papéis</a></li>
+    @endcan
+    @can('listar-usuarios')
     <li><a href="{{ route('admin.usuarios') }}">Usuários</a></li>
+    @endcan
+    @can('listar-paginas')
     <li><a href="{{ route('admin.paginas') }}">Páginas</a></li>
+    @endcan
     <li><a href="{{ route('admin.slides') }}">Slides</a></li>
     <li><a href="{{ route('admin.categorias') }}">Categorias</a></li>
     <li><a href="{{ route('admin.municipios') }}">Municípios</a></li>

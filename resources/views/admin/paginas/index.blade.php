@@ -32,7 +32,11 @@
                         <td>{{ $pagina->titulo }}</td>
                         <td>{{ $pagina->descricao }}</td>
                         <td>
+                            @can('atualizar-paginas')
                             <a href="{{ route('admin.paginas.alterar', $pagina->id) }}" class="btn orange">Atualizar</a>
+                            @else
+                            <a href="#!" class="btn disabled">Atualizar</a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

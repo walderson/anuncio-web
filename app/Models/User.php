@@ -60,4 +60,15 @@ class User extends Authenticatable
 
         return $this->papeis()->detach(Papel::where('nome', '=', $papel->nome)->firstOrFail());
     }
+
+    public function possuiPapel($papel) {
+        if (is_string($papel)) {
+            return $this->papeis->contains('nome', $papel);
+        }
+        return $papel->intersect($this->papeis)->count();
+    }
+
+    public function possuiAdmin() {
+        return $this->possuiPapel('Admin');
+    }
 }
