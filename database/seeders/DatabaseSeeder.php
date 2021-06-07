@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UsuarioSeeder::class,
             PaginaSeeder::class,
             PapelSeeder::class,
+            PermissaoSeeder::class,
         ]);
     }
 }

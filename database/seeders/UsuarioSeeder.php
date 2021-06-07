@@ -16,9 +16,14 @@ class UsuarioSeeder extends Seeder
      */
     public function run()
     {
-        $usuario = new User();
+        if (User::where('email', '=', 'admin@dominio.com.br')->count()) {
+            $usuario = User::where('email', '=', 'admin@dominio.com.br')->first();
+        } else {
+            $usuario = new User();
+            $usuario->email = "admin@dominio.com.br";
+        }
+
         $usuario->name = "Walderson Shimokawa";
-        $usuario->email = "admin@dominio.com.br";
         $usuario->password = Hash::make("123456");
         $usuario->save();
     }

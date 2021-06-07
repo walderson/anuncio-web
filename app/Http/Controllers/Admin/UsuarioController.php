@@ -40,6 +40,12 @@ class UsuarioController extends Controller
 
     public function index()
     {
+        /*if (Auth::user()->can('listar-usuarios', false)) {
+            dd('Sucesso!');
+        } else {
+            dd('Fracasso!');
+        }*/
+
         $usuarios = User::all()->sortBy('name');
         return view('admin.usuarios.index', compact('usuarios'));
     }
