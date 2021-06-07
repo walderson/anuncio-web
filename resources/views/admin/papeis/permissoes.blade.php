@@ -14,6 +14,7 @@
                 </div>
             </nav>
         </div>
+        @can('cadastrar-permissoes-papeis')
         <div class="row">
             <form action="{{ route('admin.papeis.permissoes', $papel->id) }}" method="post">
                 @csrf
@@ -29,6 +30,7 @@
                 </div>
             </form>
         </div>
+        @endcan
         <div class="row">
             <table class="highlight">
                 <thead>
@@ -47,7 +49,11 @@
                             <form action="{{ route('admin.papeis.permissoes.remover', [$papel->id, $permissao->id]) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
+                                @can('remover-permissoes-papeis')
                                 <button onclick="return remover(this.form, '{{ $permissao->nome }}')" class="btn red">Remover</button>
+                                @else
+                                <button class="btn disabled">Remover</button>
+                                @endcan
                             </form>
                         </td>
                     </tr>

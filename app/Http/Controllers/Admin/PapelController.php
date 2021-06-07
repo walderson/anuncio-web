@@ -113,13 +113,25 @@ class PapelController extends Controller
         return redirect()->route('admin.papeis');
     }
 
-    public function permissoes($id) {
+    public function permissoes(Request $request, $id) {
+        if (!Auth::user()->can('listar-permissoes-papeis')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $papel = Papel::find($id);
         $permissoes = Permissao::all();
         return view('admin.papeis.permissoes', compact('papel', 'permissoes'));
     }
 
     public function salvarPermissao(Request $request, $id) {
+        if (!Auth::user()->can('cadastrar-permissoes-papeis')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $dados = $request->all();
         $papel = Papel::find($id);
         $permissao = Permissao::find($dados['permissao_id']);
@@ -127,7 +139,13 @@ class PapelController extends Controller
         return redirect()->back();
     }
 
-    public function removerPermissao($id, $idPermissao) {
+    public function removerPermissao(Request $request, $id, $idPermissao) {
+        if (!Auth::user()->can('remover-permissoes-papeis')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $papel = Papel::find($id);
         $permissao = Permissao::find($idPermissao);
         $papel->removerPermissao($permissao);

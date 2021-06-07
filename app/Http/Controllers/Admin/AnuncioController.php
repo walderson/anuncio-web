@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 use App\Models\Anuncio;
@@ -12,14 +13,26 @@ use App\Models\Municipio;
 
 class AnuncioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if (!Auth::user()->can('listar-anuncios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $anuncios = Anuncio::all();
         return view('admin.anuncios.index', compact('anuncios'));
     }
 
-    public function cadastrar()
+    public function cadastrar(Request $request)
     {
+        if (!Auth::user()->can('cadastrar-anuncios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $categorias = Categoria::all()->sortBy('titulo');
         $municipios = Municipio::all()->sortBy('nome');
         return view('admin.anuncios.cadastrar', compact(['categorias', 'municipios']));
@@ -56,6 +69,12 @@ class AnuncioController extends Controller
 
     public function salvar(Request $request)
     {
+        if (!Auth::user()->can('cadastrar-anuncios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $dados = $request->all();
 
         $anuncio = new Anuncio();
@@ -67,8 +86,14 @@ class AnuncioController extends Controller
         return redirect()->route('admin.anuncios');
     }
 
-    public function alterar($id)
+    public function alterar(Request $request, $id)
     {
+        if (!Auth::user()->can('atualizar-anuncios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $anuncio = Anuncio::find($id);
         $categorias = Categoria::all()->sortBy('titulo');
         $municipios = Municipio::all()->sortBy('nome');
@@ -77,6 +102,12 @@ class AnuncioController extends Controller
 
     public function atualizar(Request $request, $id)
     {
+        if (!Auth::user()->can('atualizar-anuncios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $dados = $request->all();
 
         $anuncio = Anuncio::find($id);
@@ -90,6 +121,12 @@ class AnuncioController extends Controller
 
     public function remover(Request $request, $id)
     {
+        if (!Auth::user()->can('remover-anuncios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $anuncio = Anuncio::find($id);
         $anuncio->imagens()->delete();
         $anuncio->delete();

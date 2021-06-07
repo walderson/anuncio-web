@@ -14,6 +14,7 @@
                 </div>
             </nav>
         </div>
+        @can('cadastrar-papeis-usuarios')
         <div class="row">
             <form action="{{ route('admin.usuarios.papeis', $usuario->id) }}" method="post">
                 @csrf
@@ -29,6 +30,7 @@
                 </div>
             </form>
         </div>
+        @endcan
         <div class="row">
             <table class="highlight">
                 <thead>
@@ -47,7 +49,11 @@
                             <form action="{{ route('admin.usuarios.papeis.remover', [$usuario->id, $papel->id]) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
+                                @can('remover-papeis-usuarios')
                                 <button onclick="return remover(this.form, '{{ $papel->nome }}')" class="btn red">Remover</button>
+                                @else
+                                <button class="btn disabled">Remover</button>
+                                @endcan
                             </form>
                         </td>
                     </tr>

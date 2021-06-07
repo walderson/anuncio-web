@@ -41,9 +41,21 @@
                             <form action="{{ route('admin.anuncios.remover', $anuncio->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
+                                @can('listar-imagens')
                                 <a href="{{ route('admin.imagens', $anuncio->id) }}" class="btn green">Imagens</a>
+                                @else
+                                <a class="btn disabled">Imagens</a>
+                                @endcan
+                                @can('atualizar-anuncios')
                                 <a href="{{ route('admin.anuncios.alterar', $anuncio->id) }}" class="btn orange">Atualizar</a>
+                                @else
+                                <a class="btn disabled">Atualizar</a>
+                                @endcan
+                                @can('remover-anuncios')
                                 <button onclick="return remover(this.form, '{{ $anuncio->titulo }}')" class="btn red">Remover</button>
+                                @else
+                                <button class="btn disabled">Remover</button>
+                                @endcan
                             </form>
                         </td>
                     </tr>
@@ -52,7 +64,11 @@
             </table>
         </div>
         <div class="row">
+            @can('cadastrar-anuncios')
             <a href="{{ route('admin.anuncios.cadastrar') }}" class="btn blue">Cadastrar</a>
+            @else
+            <a class="btn disabled">Cadastrar</a>
+            @endcan
         </div>
     </div>
     <script>

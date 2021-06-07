@@ -33,7 +33,11 @@
                             <form action="{{ route('admin.papeis.remover', $papel->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
+                                @can('listar-permissoes-papeis')
                                 <a href="{{ route('admin.papeis.permissoes', $papel->id) }}" class="btn green{{ $papel->nome == 'Admin' ? ' disabled' : '' }}">Permissões</a>
+                                @else
+                                <a class="btn disabled">Permissões</a>
+                                @endcan
                                 @can('atualizar-papeis')
                                 <a href="{{ route('admin.papeis.alterar', $papel->id) }}" class="btn orange{{ $papel->nome == 'Admin' ? ' disabled' : '' }}">Atualizar</a>
                                 @else

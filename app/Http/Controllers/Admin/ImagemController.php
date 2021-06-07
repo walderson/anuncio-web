@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 use App\Models\Anuncio;
@@ -11,21 +12,39 @@ use App\Models\Imagem;
 
 class ImagemController extends Controller
 {
-    public function index($id)
+    public function index(Request $request, $id)
     {
+        if (!Auth::user()->can('listar-imagens')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $anuncio = Anuncio::find($id);
         $imagens = $anuncio->imagens()->orderBy('ordem')->get();
         return view('admin.imagens.index', compact('anuncio', 'imagens'));
     }
 
-    public function cadastrar($id)
+    public function cadastrar(Request $request, $id)
     {
+        if (!Auth::user()->can('cadastrar-imagens')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $anuncio = Anuncio::find($id);
         return view('admin.imagens.cadastrar', compact('anuncio'));
     }
 
     public function salvar(Request $request, $id)
     {
+        if (!Auth::user()->can('cadastrar-imagens')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $dados = $request->all();
 
         $anuncio = Anuncio::find($id);
@@ -59,8 +78,14 @@ class ImagemController extends Controller
         return redirect()->route('admin.imagens', $anuncio->id);
     }
 
-    public function alterar($id)
+    public function alterar(Request $request, $id)
     {
+        if (!Auth::user()->can('atualizar-imagens')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $imagem = Imagem::find($id);
         $anuncio = $imagem->anuncio;
         return view('admin.imagens.alterar', compact('imagem', 'anuncio'));
@@ -68,6 +93,12 @@ class ImagemController extends Controller
 
     public function atualizar(Request $request, $id)
     {
+        if (!Auth::user()->can('atualizar-imagens')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $dados = $request->all();
 
         $imagem = Imagem::find($id);
@@ -106,6 +137,12 @@ class ImagemController extends Controller
 
     public function remover(Request $request, $id)
     {
+        if (!Auth::user()->can('remover-imagens')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $imagem = Imagem::find($id);
         $anuncio = $imagem->anuncio;
         $imagem->delete();

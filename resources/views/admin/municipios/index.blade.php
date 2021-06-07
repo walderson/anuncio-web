@@ -35,8 +35,16 @@
                             <form action="{{ route('admin.municipios.remover', $municipio->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
+                                @can('atualizar-municipios')
                                 <a href="{{ route('admin.municipios.alterar', $municipio->id) }}" class="btn orange">Atualizar</a>
+                                @else
+                                <a class="btn disabled">Atualizar</a>
+                                @endcan
+                                @can('remover-municipios')
                                 <button onclick="return remover(this.form, '{{ $municipio->nome }}')" class="btn red">Remover</button>
+                                @else
+                                <button class="btn disabled">Remover</button>
+                                @endif
                             </form>
                         </td>
                     </tr>
@@ -45,7 +53,11 @@
             </table>
         </div>
         <div class="row">
+            @can('cadastrar-municipios')
             <a href="{{ route('admin.municipios.cadastrar') }}" class="btn blue">Cadastrar</a>
+            @else
+            <a class="btn disabled">Cadastrar</a>
+            @endcan
         </div>
     </div>
     <script>

@@ -131,13 +131,25 @@ class UsuarioController extends Controller
         return redirect()->route('admin.usuarios');
     }
 
-    public function papeis($id) {
+    public function papeis(Request $request, $id) {
+        if (!Auth::user()->can('listar-papeis-usuarios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $usuario = User::find($id);
         $papeis = Papel::orderBy('nome')->get();
         return view('admin.usuarios.papeis', compact('usuario', 'papeis'));
     }
 
     public function salvarPapel(Request $request, $id) {
+        if (!Auth::user()->can('cadastrar-papeis-usuarios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $dados = $request->all();
         $usuario = User::find($id);
         $papel = Papel::find($dados['papel_id']);
@@ -147,7 +159,13 @@ class UsuarioController extends Controller
         return redirect()->back();
     }
 
-    public function removerPapel($id, $idPapel) {
+    public function removerPapel(Request $request, $id, $idPapel) {
+        if (!Auth::user()->can('remover-papeis-usuarios')) {
+            $request->session()->flash('mensagem',
+                ['msg'=>'Erro: Sem acesso à funcionalidade!', 'class'=>'red white-text']);
+            return redirect()->route('admin.home');
+        }
+
         $usuario = User::find($id);
         $papel = Papel::find($idPapel);
         $usuario->removerPapel($papel);

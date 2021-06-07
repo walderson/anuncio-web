@@ -33,7 +33,11 @@
                             <form action="{{ route('admin.usuarios.remover', $usuario->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
+                                @can('listar-papeis-usuarios')
                                 <a href="{{ route('admin.usuarios.papeis', $usuario->id) }}" class="btn green">Papéis</a>
+                                @else
+                                <a href="#!" class="btn disabled">Papéis</a>
+                                @endcan
                                 @can('atualizar-usuarios')
                                 <a href="{{ route('admin.usuarios.alterar', $usuario->id) }}" class="btn orange">Atualizar</a>
                                 @else

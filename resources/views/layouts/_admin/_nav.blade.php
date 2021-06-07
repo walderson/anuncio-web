@@ -26,10 +26,18 @@
                 @can('listar-paginas')
                 <li><a href="{{ route('admin.paginas') }}">Páginas</a></li>
                 @endcan
+                @can('listar-slides')
                 <li><a href="{{ route('admin.slides') }}">Slides</a></li>
+                @endcan
+                @can('listar-categorias')
                 <li><a href="{{ route('admin.categorias') }}">Categorias</a></li>
+                @endcan
+                @can('listar-municipios')
                 <li><a href="{{ route('admin.municipios') }}">Municípios</a></li>
+                @endcan
+                @can('listar-anuncios')
                 <li><a href="{{ route('admin.anuncios') }}">Anúncios</a></li>
+                @endcan
             </ul>
             @endif
         </div>
@@ -51,10 +59,18 @@
     @can('listar-paginas')
     <li><a href="{{ route('admin.paginas') }}">Páginas</a></li>
     @endcan
+    @can('listar-slides')
     <li><a href="{{ route('admin.slides') }}">Slides</a></li>
+    @endcan
+    @can('listar-categorias')
     <li><a href="{{ route('admin.categorias') }}">Categorias</a></li>
+    @endcan
+    @can('listar-municipios')
     <li><a href="{{ route('admin.municipios') }}">Municípios</a></li>
+    @endcan
+    @can('listar-anuncios')
     <li><a href="{{ route('admin.anuncios') }}">Anúncios</a></li>
+    @endcan
     <li><a href="{{ route('admin.logout') }}">Sair</a></li>
     @endif
 </ul>

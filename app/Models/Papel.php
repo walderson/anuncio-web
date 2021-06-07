@@ -35,4 +35,11 @@ class Papel extends Model
 
         return $this->permissoes()->detach(Permissao::where('nome', '=', $permissao->nome)->firstOrFail());
     }
+
+    public function possuiPermissao($permissao) {
+        if (is_string($permissao)) {
+            return $this->permissoes->contains('nome', $permissao);
+        }
+        return $permissao->intersect($this->permissoes)->count();
+    }
 }
