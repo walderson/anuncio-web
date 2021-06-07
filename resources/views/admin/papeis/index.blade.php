@@ -33,6 +33,7 @@
                             <form action="{{ route('admin.papeis.remover', $papel->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="delete">
+                                <a href="{{ route('admin.papeis.permissoes', $papel->id) }}" class="btn green">Permissões</a>
                                 <a href="{{ route('admin.papeis.alterar', $papel->id) }}" class="btn orange{{ $papel->nome == 'Admin' ? ' disabled' : '' }}">Atualizar</a>
                                 <button onclick="return remover(this.form, '{{ $papel->nome }}')" class="btn red{{ $papel->nome == 'Admin' ? ' disabled' : '' }}">Remover</button>
                             </form>

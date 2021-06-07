@@ -19,4 +19,20 @@ class Papel extends Model
     public function permissoes() {
         return $this->belongsToMany(Permissao::class);
     }
+
+    public function adicionarPermissao($permissao) {
+        if (is_string($permissao)) {
+            return $this->permissoes()->attach(Permissao::where('nome', '=', $permissao)->firstOrFail());
+        }
+
+        return $this->permissoes()->attach(Permissao::where('nome', '=', $permissao->nome)->firstOrFail());
+    }
+
+    public function removerPermissao($permissao) {
+        if (is_string($permissao)) {
+            return $this->permissoes()->detach(Permissao::where('nome', '=', $permissao)->firstOrFail());
+        }
+
+        return $this->permissoes()->detach(Permissao::where('nome', '=', $permissao->nome)->firstOrFail());
+    }
 }
