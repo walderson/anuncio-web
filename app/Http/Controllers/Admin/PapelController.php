@@ -135,7 +135,9 @@ class PapelController extends Controller
         $dados = $request->all();
         $papel = Papel::find($id);
         $permissao = Permissao::find($dados['permissao_id']);
-        $papel->adicionarPermissao($permissao);
+        if (!$papel->possuiPermissao($permissao->nome)) {
+            $papel->adicionarPermissao($permissao);
+        }
         return redirect()->back();
     }
 

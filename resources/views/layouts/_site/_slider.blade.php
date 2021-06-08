@@ -1,3 +1,4 @@
+@if (!$slides->isempty())
 <div class="slider">
     <ul class="slides">
         @foreach ($slides as $slide)
@@ -14,3 +15,4 @@
         @endforeach
     </ul>
 </div>
+@endif

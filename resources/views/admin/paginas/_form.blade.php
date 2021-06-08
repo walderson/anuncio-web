@@ -1,10 +1,10 @@
 <div class="input-field">
-    <input type="text" class="validate" id="titulo" name="titulo"
+    <input type="text" class="validate" id="titulo" name="titulo" required
            value="{{ isset($pagina->titulo) ? $pagina->titulo : '' }}">
     <label for="titulo">Título</label>
 </div>
 <div class="input-field">
-    <input type="text" class="validate" id="descricao" name="descricao"
+    <input type="text" class="validate" id="descricao" name="descricao" required
            value="{{ isset($pagina->descricao) ? $pagina->descricao : '' }}">
     <label for="descricao">Descrição</label>
 </div>
@@ -16,7 +16,8 @@
 </div>
 @endif
 <div class="input-field">
-    <textarea id="texto" name="texto" class="materialize-textarea">{{ isset($pagina->texto) ? $pagina->texto : '' }}</textarea>
+    <textarea id="texto" name="texto" class="materialize-textarea"
+        required>{{ isset($pagina->texto) ? $pagina->texto : '' }}</textarea>
     <label for="texto">Texto</label>
 </div>
 <div class="row">

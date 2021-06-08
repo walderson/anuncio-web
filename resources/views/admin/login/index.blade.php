@@ -6,7 +6,11 @@
         <form action="{{ route('admin.login') }}" method="post">
             @csrf
             @include('admin.login._form')
-            <button class="btn blue">Entrar</button>
+            <div class="row">
+                <div class="col s12 m12">
+                    <button class="btn blue">Entrar</button>
+                </div>
+            </div>
         </form>
     </div>
 @endsection

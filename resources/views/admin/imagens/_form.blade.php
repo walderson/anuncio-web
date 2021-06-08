@@ -33,7 +33,7 @@
     <div class="file-field input-field col m12 s12">
         <div class="btn">
             <span>Selecionar Imagens</span>
-            <input type="file" multiple id="imagem" name="imagem[]">
+            <input type="file" multiple id="imagem" name="imagem[]" required>
         </div>
         <div class="file-path-wrapper">
             <input class="file-path validate" type="text">

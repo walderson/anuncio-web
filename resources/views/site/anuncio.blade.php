@@ -43,6 +43,12 @@
             <p><b>Município:</b> {{ $anuncio->municipio->nome }} - {{ $anuncio->municipio->sigla_uf }}</p>
             <p><b>Valor:</b> R$ {{ number_format($anuncio->valor, 2, ',', '.') }}</p>
             <a href="{{ route('site.contato') }}" class="btn deep-orange darken-1">Entrar em contato</a>
+            <p>
+                <a href="https://web.facebook.com/sharer/sharer.php?p[url]={{ route('site.anuncio', [$anuncio->id, Illuminate\Support\Str::slug($anuncio->titulo, '_')]) }}"
+                    target="_blank"><img src="{{ asset('img/facebook.png') }}" title="Compartilhe este anúncio" width="32"></a>
+                <a href="http://www.twitter.com/share?url={{ route('site.anuncio', [$anuncio->id, Illuminate\Support\Str::slug($anuncio->titulo, '_')]) }}"
+                    target="_blank"><img src="{{ asset('img/twitter.png') }}" title="Tuíte este anúncio" width="32"></a>
+            </p>
         </div>
     </div>
     <div class="row section">

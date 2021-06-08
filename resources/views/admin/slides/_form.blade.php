@@ -20,7 +20,7 @@
     <label for="ordem">Ordem</label>
 </div>
 <div class="input-field">
-    <select name="status" id="status">
+    <select name="status" id="status" required>
         <option value="Rascunho"{{ isset($slide->status) && $slide->status == "Rascunho" ? " selected" : "" }}>Rascunho</option>
         <option value="Publicado"{{ isset($slide->status) && $slide->status == "Publicado" ? " selected" : "" }}>Publicado</option>
     </select>
@@ -45,7 +45,7 @@
     <div class="file-field input-field col m12 s12">
         <div class="btn">
             <span>Selecionar Imagens</span>
-            <input type="file" multiple id="imagem" name="imagem[]">
+            <input type="file" multiple id="imagem" name="imagem[]" required>
         </div>
         <div class="file-path-wrapper">
             <input class="file-path validate" type="text">

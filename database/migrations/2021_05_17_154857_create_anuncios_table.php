@@ -27,7 +27,7 @@ class CreateAnunciosTable extends Migration
             $table->string('cep')->nullable();
             $table->decimal('valor', 10, 2);
             $table->text('detalhes');
-            $table->string('mapa')->nullable();
+            $table->text('mapa')->nullable();
             $table->integer('visualizacoes')->default(0);
             $table->enum('status', ['Rascunho', 'Publicado']);
             $table->timestamps();
