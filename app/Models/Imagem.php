@@ -12,6 +12,7 @@ class Imagem extends Model
     protected $table = 'imagens';
 
     public function anuncio() {
-        return $this->belongsTo('App\Models\Anuncio', 'anuncio_id');
+        return $this->belongsTo('App\Models\Anuncio', 'anuncio_id')
+                    ->select('id', 'titulo');
     }
 }

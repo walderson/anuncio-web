@@ -33,7 +33,7 @@ class ImagemController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $anuncio = Anuncio::find($id);
+        $anuncio = Anuncio::find($id, 'id');
         return view('admin.imagens.cadastrar', compact('anuncio'));
     }
 
@@ -47,7 +47,7 @@ class ImagemController extends Controller
 
         $dados = $request->all();
 
-        $anuncio = Anuncio::find($id);
+        $anuncio = Anuncio::find($id, ['id', 'titulo']);
         if ($anuncio->imagens()->count()) {
             $imagem = $anuncio->imagens()->orderBy('ordem', 'desc')->first();
             $ordem = isset($imagem->ordem) ? $imagem->ordem : 0;
@@ -66,7 +66,8 @@ class ImagemController extends Controller
                 $dir = 'img/anuncios/' . Str::slug($anuncio->titulo, '_') . '/';
                 $ext = $arquivo->guessClientExtension();
                 $nomeArquivo = '_img_' . $rand . '.' . $ext;
-                $arquivo->move($dir, $nomeArquivo);
+                //$arquivo->move($dir, $nomeArquivo);
+                $this->upload($arquivo, $imagem);
                 $imagem->imagem = $dir . $nomeArquivo;
     
                 $imagem->save();
@@ -86,7 +87,7 @@ class ImagemController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $imagem = Imagem::find($id);
+        $imagem = Imagem::find($id, ['id', 'anuncio_id', 'titulo', 'descricao', 'imagem', 'ordem']);
         $anuncio = $imagem->anuncio;
         return view('admin.imagens.alterar', compact('imagem', 'anuncio'));
     }
@@ -125,7 +126,8 @@ class ImagemController extends Controller
             $dir = 'img/anuncios/' . Str::slug($anuncio->titulo, '_') . '/';
             $ext = $arquivo->guessClientExtension();
             $nomeArquivo = '_img_' . $rand . '.' . $ext;
-            $arquivo->move($dir, $nomeArquivo);
+            //$arquivo->move($dir, $nomeArquivo);
+            $this->upload($arquivo, $imagem);
             $imagem->imagem = $dir . $nomeArquivo;
         }
         $imagem->update();
@@ -143,7 +145,7 @@ class ImagemController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $imagem = Imagem::find($id);
+        $imagem = Imagem::find($id, ['id', 'anuncio_id']);
         $anuncio = $imagem->anuncio;
         $imagem->delete();
 

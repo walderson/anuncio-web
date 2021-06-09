@@ -18,6 +18,7 @@ class Anuncio extends Model
     }
 
     public function imagens() {
-        return $this->hasMany('App\Models\Imagem', 'anuncio_id');
+        return $this->hasMany('App\Models\Imagem', 'anuncio_id')
+                    ->select(['id', 'anuncio_id', 'titulo', 'descricao', 'imagem', 'ordem']);
     }
 }

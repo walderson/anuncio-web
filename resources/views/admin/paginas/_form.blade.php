@@ -16,8 +16,7 @@
 </div>
 @endif
 <div class="input-field">
-    <textarea id="texto" name="texto" class="materialize-textarea"
-        required>{{ isset($pagina->texto) ? $pagina->texto : '' }}</textarea>
+    <textarea id="texto" name="texto" class="materialize-textarea">{{ isset($pagina->texto) ? $pagina->texto : '' }}</textarea>
     <label for="texto">Texto</label>
 </div>
 <div class="row">

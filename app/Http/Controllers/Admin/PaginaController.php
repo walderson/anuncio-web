@@ -17,7 +17,7 @@ class PaginaController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $paginas = Pagina::all();
+        $paginas = Pagina::all('id', 'titulo', 'descricao', 'tipo');
         return view('admin.paginas.index', compact('paginas'));
     }
 
@@ -28,7 +28,7 @@ class PaginaController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $pagina = Pagina::find($id);
+        $pagina = Pagina::find($id, ['id', 'titulo', 'descricao', 'texto', 'imagem', 'mapa', 'email', 'tipo']);
         return view('admin.paginas.alterar', compact('pagina'));
     }
 
@@ -60,7 +60,8 @@ class PaginaController extends Controller
             $dir = 'img/paginas/' . $id . '/';
             $ext = $arquivo->guessClientExtension();
             $nomeArquivo = '_img_' . $rand . '.' . $ext;
-            $arquivo->move($dir, $nomeArquivo);
+            //$arquivo->move($dir, $nomeArquivo);
+            $this->upload($arquivo, $pagina);
             $pagina->imagem = $dir . $nomeArquivo;
         }
 

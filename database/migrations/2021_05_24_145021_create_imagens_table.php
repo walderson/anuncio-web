@@ -19,7 +19,9 @@ class CreateImagensTable extends Migration
             $table->foreign('anuncio_id')->references('id')->on('anuncios');
             $table->string('titulo')->nullable();
             $table->string('descricao')->nullable();
-            $table->string('imagem');
+            $table->string('imagem')->unique();
+            $table->string('mime');
+            $table->text('conteudo');
             $table->integer('ordem')->unsigned()->nullable();
             $table->timestamps();
         });

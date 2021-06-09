@@ -13,7 +13,8 @@ use App\Models\Slide;
 class HomeController extends Controller
 {
     public function index() {
-        $slides = Slide::where('status', '=', 'Publicado')
+        $slides = Slide::select('titulo', 'descricao', 'imagem', 'link')
+                        ->where('status', '=', 'Publicado')
                         ->orderBy('ordem')->get();
         $categorias = Categoria::orderBy('titulo')->get();
         $municipios = Municipio::orderBy('nome')->get();

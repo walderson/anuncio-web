@@ -15,10 +15,12 @@ class CreatePaginasTable extends Migration
     {
         Schema::create('paginas', function (Blueprint $table) {
             $table->id();
-            $table->string("titulo");
+            $table->string("titulo")->unique();
             $table->string("descricao");
             $table->text("texto");
             $table->string("imagem")->nullable();
+            $table->string("mime")->nullable();
+            $table->text("conteudo")->nullable();
             $table->text("mapa")->nullable();
             $table->string("email")->nullable();
             $table->string("tipo");

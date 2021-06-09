@@ -15,7 +15,7 @@ class CreatePapeisTable extends Migration
     {
         Schema::create('papeis', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('nome')->unique();
             $table->string('descricao');
             $table->timestamps();
         });

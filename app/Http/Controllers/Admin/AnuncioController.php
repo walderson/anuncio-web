@@ -21,7 +21,7 @@ class AnuncioController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $anuncios = Anuncio::all();
+        $anuncios = Anuncio::all('id', 'titulo', 'finalidade', 'municipio_id', 'valor', 'imagem', 'status');
         return view('admin.anuncios.index', compact('anuncios'));
     }
 
@@ -62,7 +62,8 @@ class AnuncioController extends Controller
             $dir = 'img/anuncios/' . Str::slug($dados['titulo'], '_') . '/';
             $ext = $arquivo->guessClientExtension();
             $nomeArquivo = '_img_' . $rand . '.' . $ext;
-            $arquivo->move($dir, $nomeArquivo);
+            //$arquivo->move($dir, $nomeArquivo);
+            $this->upload($arquivo, $anuncio);
             $anuncio->imagem = $dir . $nomeArquivo;
         }
     }
@@ -94,7 +95,7 @@ class AnuncioController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $anuncio = Anuncio::find($id);
+        $anuncio = Anuncio::find($id, ['id', 'titulo', 'descricao', 'imagem', 'finalidade', 'categoria_id', 'endereco', 'cep', 'municipio_id', 'valor', 'detalhes', 'mapa', 'status']);
         $categorias = Categoria::all()->sortBy('titulo');
         $municipios = Municipio::all()->sortBy('nome');
         return view('admin.anuncios.alterar', compact('anuncio', 'categorias', 'municipios'));
@@ -127,7 +128,7 @@ class AnuncioController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $anuncio = Anuncio::find($id);
+        $anuncio = Anuncio::find($id, 'id');
         $anuncio->imagens()->delete();
         $anuncio->delete();
 

@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
+/public/img/anuncios/**
 /public/img/paginas/**
+/public/img/slides/**
 /public/storage
 /storage/*.key
 /vendor

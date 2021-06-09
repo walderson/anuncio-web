@@ -35,7 +35,7 @@
         <div class="col s12 m4">
             <h4>{{ $anuncio->titulo }}</h4>
             <blockquote>{{ $anuncio->descricao }}</blockquote>
-            <p><b>Código:</b> {{ $anuncio->id }}</p>
+            <p><b>Visualizações:</b> {{ $anuncio->visualizacoes }}</p>
             <p><b>Finalidade:</b> {{ $anuncio->finalidade }}</p>
             <p><b>Categoria:</b> {{ $anuncio->categoria->titulo }}</p>
             <p><b>Endereço:</b> {{ $anuncio->endereco }}</p>

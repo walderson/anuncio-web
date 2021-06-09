@@ -17,7 +17,9 @@ class CreateSlidesTable extends Migration
             $table->id();
             $table->string('titulo')->nullable();
             $table->string('descricao')->nullable();
-            $table->string('imagem');
+            $table->string('imagem')->unique();
+            $table->string('mime');
+            $table->text('conteudo');
             $table->string('link')->nullable();
             $table->integer('ordem')->nullable();
             $table->enum('status', ['Rascunho', 'Publicado'])->default('Rascunho');

@@ -18,7 +18,8 @@ class SlideController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $slides = Slide::orderBy('ordem')->get();
+        $slides = Slide::select('id', 'ordem', 'titulo', 'descricao', 'status', 'imagem')
+                        ->orderBy('ordem')->get();
         return view('admin.slides.index', compact('slides'));
     }
 
@@ -44,7 +45,7 @@ class SlideController extends Controller
         $dados = $request->all();
 
         if (Slide::count()) {
-            $slide = Slide::orderBy('ordem', 'desc')->first();
+            $slide = Slide::select('ordem')->orderBy('ordem', 'desc')->first();
             $ordem = isset($slide->ordem) ? $slide->ordem : 0;
         } else {
             $ordem = 0;
@@ -60,7 +61,8 @@ class SlideController extends Controller
                 $dir = 'img/slides/';
                 $ext = $arquivo->guessClientExtension();
                 $nomeArquivo = '_img_' . $rand . '.' . $ext;
-                $arquivo->move($dir, $nomeArquivo);
+                //$arquivo->move($dir, $nomeArquivo);
+                $this->upload($arquivo, $slide);
                 $slide->imagem = $dir . $nomeArquivo;
     
                 $slide->save();
@@ -80,7 +82,7 @@ class SlideController extends Controller
             return redirect()->route('admin.home');
         }
 
-        $slide = Slide::find($id);
+        $slide = Slide::find($id, ['id', 'titulo', 'descricao', 'imagem', 'link', 'ordem', 'status']);
         return view('admin.slides.alterar', compact('slide'));
     }
 
@@ -123,7 +125,8 @@ class SlideController extends Controller
             $dir = 'img/slides/';
             $ext = $arquivo->guessClientExtension();
             $nomeArquivo = '_img_' . $rand . '.' . $ext;
-            $arquivo->move($dir, $nomeArquivo);
+            //$arquivo->move($dir, $nomeArquivo);
+            $this->upload($arquivo, $slide);
             $slide->imagem = $dir . $nomeArquivo;
         }
         $slide->update();
@@ -141,7 +144,7 @@ class SlideController extends Controller
             return redirect()->route('admin.home');
         }
 
-        Slide::find($id)->delete();
+        Slide::find($id, 'id')->delete();
 
         $request->session()->flash('mensagem',
             ['msg'=>'Slide removido com sucesso!', 'class'=>'green white-text']);

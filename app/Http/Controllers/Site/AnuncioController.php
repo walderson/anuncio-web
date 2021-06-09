@@ -11,7 +11,8 @@ use App\Models\Anuncio;
 class AnuncioController extends Controller
 {
     public function index($id) {
-        $anuncio = Anuncio::find($id);
+        $anuncio = Anuncio::find($id, ['id', 'titulo', 'descricao', 'imagem', 'finalidade', 'categoria_id', 'endereco', 'cep', 'municipio_id', 'valor', 'detalhes', 'mapa', 'status','visualizacoes']);
+        $anuncio->increment('visualizacoes');
         $imagens = $anuncio->imagens()->orderBy('ordem')->get();
         $alinhamentos = ['center-align', 'left-align','right-align'];
         $seo = [

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PapelController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UsuarioController;
 use App\Http\Controllers\Site\AnuncioController as AnuncioSite;
+use App\Http\Controllers\Site\DownloadController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\PaginaController as PaginaSite;
 
@@ -26,6 +27,10 @@ use App\Http\Controllers\Site\PaginaController as PaginaSite;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('site.home');
+
+Route::get('/img/paginas/{id}/{nomeArquivo}', [DownloadController::class, 'imagemPagina']);
+Route::get('/img/anuncios/{titulo}/{nomeArquivo}', [DownloadController::class, 'imagemAnuncio']);
+Route::get('/img/slides/{nomeArquivo}', [DownloadController::class, 'imagemSlide']);
 
 Route::get('/busca', [HomeController::class, 'busca'])->name('site.busca');
 
